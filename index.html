@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Bootstrap Playground - Aguilar</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bootstrap Playground with Interactive Features</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Bootstrap Icons -->
@@ -37,6 +37,29 @@
             border: 5px solid white;
             box-shadow: 0 5px 15px rgba(0,0,0,0.2);
         }
+        .code-comparison {
+            background-color: #f8f9fa;
+            border-radius: 5px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .code-example {
+            background-color: #272822;
+            color: #f8f8f2;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            margin: 10px 0;
+        }
+        .console {
+            background-color: #000;
+            color: #0f0;
+            padding: 15px;
+            border-radius: 5px;
+            height: 200px;
+            overflow-y: auto;
+            font-family: monospace;
+        }
     </style>
 </head>
 <body>
@@ -45,7 +68,7 @@
         <div class="container">
             <a class="navbar-brand" href="#">
                 <i class="bi bi-code-slash me-2"></i>
-                Aguilar's Test Page
+                Bootstrap Playground
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
@@ -73,18 +96,88 @@
     <!-- Hero Section -->
     <div class="hero-section text-center">
         <div class="container">
-            <img src="https://ui-avatars.com/api/?name=T+A&size=150&background=ffffff&color=007bff&bold=true" alt="Profile" class="profile-img rounded-circle mb-3">
+            <img src="https://ui-avatars.com/api/?name=Trix+Aguilar&size=150&background=ffffff&color=007bff&bold=true" alt="Profile" class="profile-img rounded-circle mb-3">
             <h1 class="display-4 fw-bold">Trix Justin A. Aguilar</h1>
             <p class="lead">BS Information Systems Student | CHMSU | Music Enthusiast</p>
             <div class="mt-4">
-                <button class="btn btn-light btn-lg me-2">Learn More</button>
-                <button class="btn btn-outline-light btn-lg">Contact Me</button>
+                <button class="btn btn-light btn-lg me-2" onclick="showAlert()">Show Alert</button>
+                <button class="btn btn-outline-light btn-lg" onclick="changeBackground()">Change Background</button>
             </div>
         </div>
     </div>
 
     <!-- Main Content -->
     <div class="container my-5">
+        <!-- JavaScript vs Python Explanation -->
+        <div class="row mb-5">
+            <div class="col-12">
+                <h2 class="mb-4">JavaScript for Python Developers</h2>
+                <div class="code-comparison">
+                    <p>Since you know Python, here's how JavaScript compares:</p>
+                    
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h5>Python</h5>
+                            <div class="code-example">
+                                <pre># Function definition
+def greet(name):
+    print(f"Hello, {name}!")
+
+# Function call
+greet("Trix")
+
+# Variable assignment
+counter = 0
+
+# Conditionals
+if counter > 5:
+    print("Greater than 5")
+else:
+    print("5 or less")</pre>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <h5>JavaScript</h5>
+                            <div class="code-example">
+                                <pre>// Function definition
+function greet(name) {
+    console.log(`Hello, ${name}!`);
+}
+
+// Function call
+greet("Trix");
+
+// Variable assignment
+let counter = 0;
+
+// Conditionals
+if (counter > 5) {
+    console.log("Greater than 5");
+} else {
+    console.log("5 or less");
+}</pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Interactive Console -->
+        <div class="row mb-5">
+            <div class="col-12">
+                <h3 class="mb-3">Interactive Console</h3>
+                <div class="console" id="console">
+                    > Welcome to the JavaScript console. Try the buttons below!<br>
+                </div>
+                <div class="d-flex flex-wrap gap-2 mt-3">
+                    <button class="btn btn-primary" onclick="logToConsole('Button clicked!')">Log Message</button>
+                    <button class="btn btn-success" onclick="addToCounter(1)">Counter: <span id="counter">0</span></button>
+                    <button class="btn btn-warning" onclick="clearConsole()">Clear Console</button>
+                </div>
+            </div>
+        </div>
+
         <!-- Profile Information Cards -->
         <div class="row mb-5">
             <div class="col-md-4 mb-4">
@@ -96,6 +189,7 @@
                         <p class="card-text"><strong>Name:</strong> Trix Justin A. Aguilar</p>
                         <p class="card-text"><strong>Location:</strong> E.B. Magalona</p>
                         <p class="card-text"><strong>Gender:</strong> Male</p>
+                        <button class="btn btn-outline-info btn-sm" onclick="editInfo('personal')">Edit</button>
                     </div>
                 </div>
             </div>
@@ -108,6 +202,7 @@
                         <p class="card-text"><strong>School:</strong> CHMSU</p>
                         <p class="card-text"><strong>Course:</strong> BS Information Systems</p>
                         <p class="card-text"><strong>Year:</strong> 3rd Year</p>
+                        <button class="btn btn-outline-success btn-sm" onclick="editInfo('education')">Edit</button>
                     </div>
                 </div>
             </div>
@@ -118,101 +213,56 @@
                     </div>
                     <div class="card-body">
                         <p class="card-text"><strong>Hobby:</strong> Music</p>
-                        <p class="card-text"><strong>Status:</strong> Procrastinating</p>
+                        <p class="card-text"><strong>Status:</strong> Gusto ko na mag</p>
                         <p class="card-text"><strong>Goal:</strong> Puli</p>
+                        <button class="btn btn-outline-primary btn-sm" onclick="editInfo('hobbies')">Edit</button>
                     </div>
                 </div>
             </div>
         </div>
 
         <!-- Bootstrap Components Showcase -->
-        <h2 id="components" class="mb-4 component-showcase">Bootstrap Components Showcase</h2>
+        <h2 id="components" class="mb-4 component-showcase">Interactive Components</h2>
         
         <!-- Buttons Section -->
         <div class="row mb-5">
             <div class="col-12">
-                <h3 class="mb-3">Buttons</h3>
+                <h3 class="mb-3">Buttons with Functions</h3>
                 <div class="d-flex flex-wrap gap-2 mb-4">
-                    <button type="button" class="btn btn-primary">Primary</button>
-                    <button type="button" class="btn btn-secondary">Secondary</button>
-                    <button type="button" class="btn btn-success">Success</button>
-                    <button type="button" class="btn btn-danger">Danger</button>
-                    <button type="button" class="btn btn-warning">Warning</button>
-                    <button type="button" class="btn btn-info">Info</button>
-                    <button type="button" class="btn btn-light">Light</button>
-                    <button type="button" class="btn btn-dark">Dark</button>
-                    <button type="button" class="btn btn-link">Link</button>
-                </div>
-                
-                <div class="d-flex flex-wrap gap-2 mb-4">
-                    <button type="button" class="btn btn-outline-primary">Outline Primary</button>
-                    <button type="button" class="btn btn-outline-secondary">Outline Secondary</button>
-                    <button type="button" class="btn btn-outline-success">Outline Success</button>
-                    <button type="button" class="btn btn-outline-danger">Outline Danger</button>
-                    <button type="button" class="btn btn-outline-warning">Outline Warning</button>
-                    <button type="button" class="btn btn-outline-info">Outline Info</button>
-                </div>
-                
-                <div class="d-flex flex-wrap gap-2">
-                    <button type="button" class="btn btn-primary btn-lg">Large Button</button>
-                    <button type="button" class="btn btn-secondary btn-sm">Small Button</button>
-                    <button type="button" class="btn btn-success" disabled>Disabled Button</button>
+                    <button type="button" class="btn btn-primary" onclick="showNotification('Primary button clicked!', 'primary')">Primary</button>
+                    <button type="button" class="btn btn-success" onclick="showNotification('Success action completed!', 'success')">Success</button>
+                    <button type="button" class="btn btn-danger" onclick="showNotification('Danger: Something went wrong!', 'danger')">Danger</button>
+                    <button type="button" class="btn btn-warning" onclick="toggleDarkMode()">Toggle Dark Mode</button>
                 </div>
             </div>
         </div>
         
-        <!-- Alerts Section -->
+        <!-- Form Section -->
         <div class="row mb-5">
             <div class="col-12">
-                <h3 class="mb-3">Alerts</h3>
-                <div class="alert alert-primary" role="alert">
-                    This is a primary alert—check it out!
-                </div>
-                <div class="alert alert-success" role="alert">
-                    <i class="bi bi-check-circle-fill me-2"></i>
-                    This is a success alert—well done!
-                </div>
-                <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                    <strong>Holy guacamole!</strong> This is a dismissible danger alert.
-                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                </div>
-            </div>
-        </div>
-        
-       
-        <div class="row mb-5">
-            <div class="col-12">
-                <h3 class="mb-3">Cards</h3>
-            </div>
-            <div class="col-md-4 mb-4">
-                <div class="card">
-                    <img src="furina.jpeg" class="card-img-top" alt="The thing, John H. Github">
-                    <div class="card-body">
-                        <h5 class="card-title">Github Card</h5>
-                        <p class="card-text">Test Card with Image</p>
-                        <a href="#" class="btn btn-primary">Click Now!!</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4 mb-4">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">Simple Card</h5>
-                        <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        <a href="#" class="card-link">Card link</a>
-                        <a href="#" class="card-link">Another link</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4 mb-4">
-                <div class="card text-white bg-dark">
-                    <div class="card-header">Featured</div>
-                    <div class="card-body">
-                        <h5 class="card-title">Dark Card</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        <a href="#" class="btn btn-light">Button</a>
-                    </div>
+                <h3 class="mb-3">Form Interaction</h3>
+                <div class="card p-4">
+                    <form onsubmit="handleFormSubmit(event)">
+                        <div class="mb-3">
+                            <label for="nameInput" class="form-label">Your Name</label>
+                            <input type="text" class="form-control" id="nameInput" placeholder="Enter your name">
+                        </div>
+                        <div class="mb-3">
+                            <label for="messageInput" class="form-label">Message</label>
+                            <textarea class="form-control" id="messageInput" rows="3" placeholder="Enter your message"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="colorSelect" class="form-label">Favorite Color</label>
+                            <select class="form-select" id="colorSelect">
+                                <option value="">Select a color</option>
+                                <option value="red">Red</option>
+                                <option value="blue">Blue</option>
+                                <option value="green">Green</option>
+                                <option value="yellow">Yellow</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
                 </div>
             </div>
         </div>
@@ -224,58 +274,6 @@
                 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
                     Launch Demo Modal
                 </button>
-            </div>
-        </div>
-        
-        <!-- Progress Bars -->
-        <div class="row mb-5">
-            <div class="col-12">
-                <h3 class="mb-3">Progress Bars</h3>
-                <div class="progress mb-3">
-                    <div class="progress-bar" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>
-                </div>
-                <div class="progress mb-3">
-                    <div class="progress-bar bg-success" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">50%</div>
-                </div>
-                <div class="progress mb-3">
-                    <div class="progress-bar bg-info" role="progressbar" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">75%</div>
-                </div>
-                <div class="progress">
-                    <div class="progress-bar bg-danger" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">100%</div>
-                </div>
-            </div>
-        </div>
-        
-        <!-- About Section -->
-        <div id="about" class="row mb-5">
-            <div class="col-12">
-                <h2 class="mb-4 component-showcase">About This Playground</h2>
-                <div class="accordion" id="accordionExample">
-                    <div class="accordion-item">
-                        <h2 class="accordion-header">
-                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne">
-                                Purpose of This Page
-                            </button>
-                        </h2>
-                        <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
-                            <div class="accordion-body">
-                                This page serves as a demonstration of various Bootstrap components and how they can be used to create an attractive, responsive web page. It showcases buttons, cards, alerts, modals, and more.
-                            </div>
-                        </div>
-                    </div>
-                    <div class="accordion-item">
-                        <h2 class="accordion-header">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo">
-                                Bootstrap Features
-                            </button>
-                        </h2>
-                        <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-                            <div class="accordion-body">
-                                Bootstrap is a powerful front-end framework that provides responsive grid system, prebuilt components, and powerful plugins built on jQuery. This page demonstrates just a fraction of what's possible with Bootstrap.
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
     </div>
@@ -311,18 +309,125 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
+                    <button type="button" class="btn btn-primary" onclick="showNotification('Modal action completed!', 'info')">Action</button>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Container for Notifications -->
+    <div class="toast-container position-fixed bottom-0 end-0 p-3">
+        <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header">
+                <strong class="me-auto" id="toast-title">Notification</strong>
+                <small>Just now</small>
+                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body" id="toast-body">
+                Hello, world! This is a toast message.
             </div>
         </div>
     </div>
 
     <!-- Bootstrap JS Bundle -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Custom JavaScript -->
+    <script>
+        // Initialize Toast
+        const toastEl = document.getElementById('liveToast');
+        const toastTitle = document.getElementById('toast-title');
+        const toastBody = document.getElementById('toast-body');
+        const toast = new bootstrap.Toast(toastEl);
+        
+        // Counter variable
+        let counter = 0;
+        
+        // Function to show alert
+        function showAlert() {
+            alert("Hello! This is a simple alert. In JavaScript, we use alert() instead of print() for popup messages.");
+            logToConsole("Alert shown to user");
+        }
+        
+        // Function to change background
+        function changeBackground() {
+            const randomColor = '#' + Math.floor(Math.random()*16777215).toString(16);
+            document.body.style.backgroundColor = randomColor;
+            logToConsole(`Background color changed to: ${randomColor}`);
+        }
+        
+        // Function to log to console
+        function logToConsole(message) {
+            const consoleElement = document.getElementById('console');
+            consoleElement.innerHTML += `> ${message}<br>`;
+            consoleElement.scrollTop = consoleElement.scrollHeight;
+        }
+        
+        // Function to add to counter
+        function addToCounter(value) {
+            counter += value;
+            document.getElementById('counter').textContent = counter;
+            logToConsole(`Counter increased to: ${counter}`);
+        }
+        
+        // Function to clear console
+        function clearConsole() {
+            document.getElementById('console').innerHTML = '> Console cleared<br>';
+        }
+        
+        // Function to show notification
+        function showNotification(message, type = 'info') {
+            // Set toast color based on type
+            toastEl.classList.remove('bg-primary', 'bg-success', 'bg-danger', 'bg-info');
+            toastEl.classList.add(`bg-${type}`);
+            
+            // Set toast content
+            toastTitle.textContent = type.charAt(0).toUpperCase() + type.slice(1);
+            toastBody.textContent = message;
+            
+            // Show toast
+            toast.show();
+            
+            logToConsole(`Notification: ${message}`);
+        }
+        
+        // Function to toggle dark mode
+        function toggleDarkMode() {
+            document.body.classList.toggle('bg-dark');
+            document.body.classList.toggle('text-white');
+            logToConsole("Dark mode toggled");
+        }
+        
+        // Function to handle form submission
+        function handleFormSubmit(event) {
+            event.preventDefault();
+            
+            const name = document.getElementById('nameInput').value;
+            const message = document.getElementById('messageInput').value;
+            const color = document.getElementById('colorSelect').value;
+            
+            if (!name) {
+                showNotification('Please enter your name', 'danger');
+                return;
+            }
+            
+            showNotification(`Thank you, ${name}! Your message has been received.`, 'success');
+            logToConsole(`Form submitted: Name=${name}, Message=${message}, Color=${color}`);
+            
+            // Reset form
+            document.getElementById('nameInput').value = '';
+            document.getElementById('messageInput').value = '';
+            document.getElementById('colorSelect').value = '';
+        }
+        
+        // Function to edit info
+        function editInfo(type) {
+            showNotification(`Edit ${type} feature would open here`, 'info');
+            logToConsole(`Edit ${type} button clicked`);
+        }
+        
+        // Initialize with a welcome message
+        logToConsole("Page loaded successfully. Try the interactive elements!");
+    </script>
 </body>
-
 </html>
-
-
-
-
