@@ -3,431 +3,478 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bootstrap Playground with Interactive Features</title>
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Bootstrap Icons -->
+    <title>Banner Budget Calculator</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        .hero-section {
-            background: linear-gradient(135deg, #0062cc 0%, #00a8ff 100%);
+        :root {
+            --primary-color: #6f42c1;
+            --secondary-color: #20c997;
+            --dark-color: #343a40;
+            --light-color: #f8f9fa;
+        }
+        
+        body {
+            background-color: #f5f7fb;
+            color: var(--dark-color);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        .navbar {
+            background: linear-gradient(135deg, var(--primary-color), #4a1fa8);
+        }
+        
+        .card {
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            border: none;
+        }
+        
+        .card-header {
+            background: linear-gradient(135deg, var(--primary-color), #5a32a8);
             color: white;
-            padding: 4rem 0;
-            margin-bottom: 2rem;
+            border-radius: 12px 12px 0 0 !important;
+            font-weight: 600;
         }
-        .feature-card {
-            transition: transform 0.3s;
-            height: 100%;
+        
+        .btn-primary {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
         }
-        .feature-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        
+        .btn-primary:hover {
+            background-color: #5a32a8;
+            border-color: #5a32a8;
         }
-        .bg-custom {
-            background-color: #f8f9fa;
+        
+        .calendar-day {
+            cursor: pointer;
+            transition: all 0.2s;
+            border-radius: 8px;
         }
-        .component-showcase {
-            border-left: 4px solid #0d6efd;
-            padding-left: 15px;
+        
+        .calendar-day:hover {
+            background-color: #e9ecef;
         }
-        .profile-img {
-            width: 150px;
-            height: 150px;
-            object-fit: cover;
-            border: 5px solid white;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        
+        .selected {
+            background-color: var(--primary-color);
+            color: white;
         }
-        .code-comparison {
-            background-color: #f8f9fa;
-            border-radius: 5px;
+        
+        .results-container {
+            background-color: #e9ecef;
+            border-radius: 12px;
             padding: 20px;
-            margin: 20px 0;
         }
-        .code-example {
-            background-color: #272822;
-            color: #f8f8f2;
-            padding: 15px;
-            border-radius: 5px;
-            overflow-x: auto;
-            margin: 10px 0;
+        
+        .banner-card {
+            transition: all 0.3s;
         }
-        .console {
-            background-color: #000;
-            color: #0f0;
-            padding: 15px;
-            border-radius: 5px;
-            height: 200px;
-            overflow-y: auto;
-            font-family: monospace;
+        
+        .banner-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        }
+        
+        .section-title {
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            color: var(--primary-color);
+        }
+        
+        .highlight {
+            color: var(--primary-color);
+            font-weight: bold;
+        }
+        
+        .pvp-tier {
+            background: linear-gradient(135deg, #6c757d, #495057);
+            color: white;
+            border-radius: 20px;
+            padding: 5px 15px;
+            display: inline-block;
+            margin: 5px;
+            cursor: pointer;
+        }
+        
+        .pvp-tier.selected {
+            background: linear-gradient(135deg, var(--secondary-color), #169871);
         }
     </style>
 </head>
 <body>
     <!-- Navigation Bar -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary sticky-top">
+    <nav class="navbar navbar-expand-lg navbar-dark">
         <div class="container">
             <a class="navbar-brand" href="#">
-                <i class="bi bi-code-slash me-2"></i>
-                Bootstrap Playground
+                <i class="bi bi-calculator-fill me-2"></i>
+                Banner Budget Calculator
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav me-auto">
+                <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link active" href="#">Home</a>
+                        <a class="nav-link active" href="#"><i class="bi bi-house-door-fill me-1"></i> Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#components">Components</a>
+                        <a class="nav-link" href="#"><i class="bi bi-question-circle-fill me-1"></i> Help</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#about">About</a>
+                        <a class="nav-link" href="#"><i class="bi bi-github me-1"></i> GitHub</a>
                     </li>
                 </ul>
-                <form class="d-flex">
-                    <input class="form-control me-2" type="search" placeholder="Search">
-                    <button class="btn btn-outline-light" type="submit">Search</button>
-                </form>
             </div>
         </div>
     </nav>
 
-    <!-- Hero Section -->
-    <div class="hero-section text-center">
-        <div class="container">
-            <img src="https://ui-avatars.com/api/?name=Trix+Aguilar&size=150&background=ffffff&color=007bff&bold=true" alt="Profile" class="profile-img rounded-circle mb-3">
-            <h1 class="display-4 fw-bold">Trix Justin A. Aguilar</h1>
-            <p class="lead">BS Information Systems Student | CHMSU | Music Enthusiast</p>
-            <div class="mt-4">
-                <button class="btn btn-light btn-lg me-2" onclick="showAlert()">Show Alert</button>
-                <button class="btn btn-outline-light btn-lg" onclick="changeBackground()">Change Background</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Main Content -->
     <div class="container my-5">
-        <!-- JavaScript vs Python Explanation -->
-        <div class="row mb-5">
-            <div class="col-12">
-                <h2 class="mb-4">JavaScript for Python Developers</h2>
-                <div class="code-comparison">
-                    <p>Since you know Python, here's how JavaScript compares:</p>
-                    
-                    <div class="row">
-                        <div class="col-md-6">
-                            <h5>Python</h5>
-                            <div class="code-example">
-                                <pre># Function definition
-def greet(name):
-    print(f"Hello, {name}!")
-
-# Function call
-greet("Trix")
-
-# Variable assignment
-counter = 0
-
-# Conditionals
-if counter > 5:
-    print("Greater than 5")
-else:
-    print("5 or less")</pre>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <h5>JavaScript</h5>
-                            <div class="code-example">
-                                <pre>// Function definition
-function greet(name) {
-    console.log(`Hello, ${name}!`);
-}
-
-// Function call
-greet("Trix");
-
-// Variable assignment
-let counter = 0;
-
-// Conditionals
-if (counter > 5) {
-    console.log("Greater than 5");
-} else {
-    console.log("5 or less");
-}</pre>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Interactive Console -->
-        <div class="row mb-5">
-            <div class="col-12">
-                <h3 class="mb-3">Interactive Console</h3>
-                <div class="console" id="console">
-                    > Welcome to the JavaScript console. Try the buttons below!<br>
-                </div>
-                <div class="d-flex flex-wrap gap-2 mt-3">
-                    <button class="btn btn-primary" onclick="logToConsole('Button clicked!')">Log Message</button>
-                    <button class="btn btn-success" onclick="addToCounter(1)">Counter: <span id="counter">0</span></button>
-                    <button class="btn btn-warning" onclick="clearConsole()">Clear Console</button>
-                </div>
-            </div>
-        </div>
-
-        <!-- Profile Information Cards -->
-        <div class="row mb-5">
-            <div class="col-md-4 mb-4">
-                <div class="card feature-card shadow">
-                    <div class="card-header bg-info text-white">
-                        <h5 class="card-title mb-0"><i class="bi bi-person me-2"></i>Personal Info</h5>
+        <div class="row">
+            <!-- Left Column - Inputs -->
+            <div class="col-lg-6">
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <i class="bi bi-wallet2 me-2"></i> Starting Budget
                     </div>
                     <div class="card-body">
-                        <p class="card-text"><strong>Name:</strong> Trix Justin A. Aguilar</p>
-                        <p class="card-text"><strong>Location:</strong> E.B. Magalona</p>
-                        <p class="card-text"><strong>Gender:</strong> Male</p>
-                        <button class="btn btn-outline-info btn-sm" onclick="editInfo('personal')">Edit</button>
+                        <div class="mb-3">
+                            <label for="startingBudget" class="form-label">Initial Carrots</label>
+                            <input type="number" class="form-control" id="startingBudget" value="1000" min="0">
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-md-4 mb-4">
-                <div class="card feature-card shadow">
-                    <div class="card-header bg-success text-white">
-                        <h5 class="card-title mb-0"><i class="bi bi-book me-2"></i>Education</h5>
-                    </div>
-                    <div class="card-body">
-                        <p class="card-text"><strong>School:</strong> CHMSU</p>
-                        <p class="card-text"><strong>Course:</strong> BS Information Systems</p>
-                        <p class="card-text"><strong>Year:</strong> 3rd Year</p>
-                        <button class="btn btn-outline-success btn-sm" onclick="editInfo('education')">Edit</button>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4 mb-4">
-                <div class="card feature-card shadow">
-                    <div class="card-header bg-primary text-white">
-                        <h5 class="card-title mb-0"><i class="bi bi-music-note-beamed me-2"></i>Hobbies</h5>
-                    </div>
-                    <div class="card-body">
-                        <p class="card-text"><strong>Hobby:</strong> Music</p>
-                        <p class="card-text"><strong>Status:</strong> Gusto ko na mag</p>
-                        <p class="card-text"><strong>Goal:</strong> Puli</p>
-                        <button class="btn btn-outline-primary btn-sm" onclick="editInfo('hobbies')">Edit</button>
-                    </div>
-                </div>
-            </div>
-        </div>
 
-        <!-- Bootstrap Components Showcase -->
-        <h2 id="components" class="mb-4 component-showcase">Interactive Components</h2>
-        
-        <!-- Buttons Section -->
-        <div class="row mb-5">
-            <div class="col-12">
-                <h3 class="mb-3">Buttons with Functions</h3>
-                <div class="d-flex flex-wrap gap-2 mb-4">
-                    <button type="button" class="btn btn-primary" onclick="showNotification('Primary button clicked!', 'primary')">Primary</button>
-                    <button type="button" class="btn btn-success" onclick="showNotification('Success action completed!', 'success')">Success</button>
-                    <button type="button" class="btn btn-danger" onclick="showNotification('Danger: Something went wrong!', 'danger')">Danger</button>
-                    <button type="button" class="btn btn-warning" onclick="toggleDarkMode()">Toggle Dark Mode</button>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Form Section -->
-        <div class="row mb-5">
-            <div class="col-12">
-                <h3 class="mb-3">Form Interaction</h3>
-                <div class="card p-4">
-                    <form onsubmit="handleFormSubmit(event)">
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <i class="bi bi-calendar-date me-2"></i> Banner Schedule
+                    </div>
+                    <div class="card-body">
                         <div class="mb-3">
-                            <label for="nameInput" class="form-label">Your Name</label>
-                            <input type="text" class="form-control" id="nameInput" placeholder="Enter your name">
-                        </div>
-                        <div class="mb-3">
-                            <label for="messageInput" class="form-label">Message</label>
-                            <textarea class="form-control" id="messageInput" rows="3" placeholder="Enter your message"></textarea>
-                        </div>
-                        <div class="mb-3">
-                            <label for="colorSelect" class="form-label">Favorite Color</label>
-                            <select class="form-select" id="colorSelect">
-                                <option value="">Select a color</option>
-                                <option value="red">Red</option>
-                                <option value="blue">Blue</option>
-                                <option value="green">Green</option>
-                                <option value="yellow">Yellow</option>
+                            <label class="form-label">Select Banner</label>
+                            <select class="form-select" id="bannerSelect">
+                                <option value="30">Jinhsi's Debut (30 days from now)</option>
+                                <option value="45">Changli's Rerun (45 days from now)</option>
+                                <option value="60">Yaoqi's Release (60 days from now)</option>
+                                <option value="custom">Custom Date</option>
                             </select>
                         </div>
-                        <button type="submit" class="btn btn-primary">Submit</button>
-                    </form>
+                        
+                        <div id="customDateSection" class="mt-3" style="display: none;">
+                            <label class="form-label">Select Custom Date</label>
+                            <input type="date" class="form-control" id="customDate">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <i class="bi bi-trophy-fill me-2"></i> PvP Ranking
+                    </div>
+                    <div class="card-body">
+                        <p class="text-muted">Select your expected PvP tier:</p>
+                        <div class="d-flex flex-wrap">
+                            <div class="pvp-tier" data-value="100">Gamma I</div>
+                            <div class="pvp-tier selected" data-value="200">Gamma II</div>
+                            <div class="pvp-tier" data-value="300">Gamma III</div>
+                            <div class="pvp-tier" data-value="400">Gamma IV</div>
+                            <div class="pvp-tier" data-value="500">Gamma V</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <i class="bi bi-download me-2"></i> Save & Load
+                    </div>
+                    <div class="card-body">
+                        <div class="d-grid gap-2">
+                            <button class="btn btn-primary" id="saveBtn">
+                                <i class="bi bi-cloud-arrow-up-fill me-2"></i> Save Configuration
+                            </button>
+                            <button class="btn btn-outline-primary" id="loadBtn">
+                                <i class="bi bi-cloud-arrow-down-fill me-2"></i> Load Configuration
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-        
-        <!-- Modal Trigger -->
-        <div class="row mb-5">
-            <div class="col-12 text-center">
-                <h3 class="mb-3">Modal Example</h3>
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                    Launch Demo Modal
-                </button>
+
+            <!-- Right Column - Results & Calendar -->
+            <div class="col-lg-6">
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <i class="bi bi-calendar-month me-2"></i> Calendar
+                    </div>
+                    <div class="card-body">
+                        <div id="calendar" class="text-center">
+                            <!-- Calendar will be generated here -->
+                        </div>
+                    </div>
+                </div>
+
+                <div class="results-container">
+                    <h3 class="section-title">Calculation Results</h3>
+                    
+                    <div class="d-flex justify-content-between mb-2">
+                        <span>Days until banner:</span>
+                        <span id="daysCount" class="highlight">30 days</span>
+                    </div>
+                    
+                    <div class="d-flex justify-content-between mb-2">
+                        <span>Starting carrots:</span>
+                        <span id="startingResult" class="highlight">1,000</span>
+                    </div>
+                    
+                    <div class="d-flex justify-content-between mb-2">
+                        <span>From dailies:</span>
+                        <span id="dailiesResult" class="highlight">900</span>
+                    </div>
+                    
+                    <div class="d-flex justify-content-between mb-2">
+                        <span>From weeklies:</span>
+                        <span id="weekliesResult" class="highlight">240</span>
+                    </div>
+                    
+                    <div class="d-flex justify-content-between mb-2">
+                        <span>From PvP rewards:</span>
+                        <span id="pvpResult" class="highlight">800</span>
+                    </div>
+                    
+                    <div class="d-flex justify-content-between mb-2">
+                        <span>Special events & gifts:</span>
+                        <span id="eventsResult" class="highlight">300</span>
+                    </div>
+                    
+                    <hr>
+                    
+                    <div class="d-flex justify-content-between mb-2 fs-5">
+                        <strong>Total carrots:</strong>
+                        <strong id="totalResult" class="highlight">3,240</strong>
+                    </div>
+                    
+                    <div class="alert alert-info mt-4">
+                        <i class="bi bi-lightbulb-fill me-2"></i>
+                        This should give you about <span id="pullsResult" class="highlight">20</span> pulls for the banner!
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-    
-    <!-- Footer -->
-    <footer class="bg-dark text-white py-4 mt-5">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-6">
-                    <h5>Bootstrap Playground</h5>
-                    <p>Created by Trix Justin A. Aguilar</p>
-                </div>
-                <div class="col-md-6 text-md-end">
-                    <a href="#" class="text-white me-2"><i class="bi bi-facebook"></i></a>
-                    <a href="#" class="text-white me-2"><i class="bi bi-twitter"></i></a>
-                    <a href="#" class="text-white"><i class="bi bi-instagram"></i></a>
-                </div>
-            </div>
-        </div>
-    </footer>
 
-    <!-- Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Bootstrap Modal</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <p>This is a demonstration of a Bootstrap modal. Modals are dialog boxes that are displayed on top of the current page.</p>
-                    <p>You can put any content you want inside a modal!</p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" onclick="showNotification('erm!', 'info'); window.location.href='2.html';">Action</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Toast Container for Notifications -->
-    <div class="toast-container position-fixed bottom-0 end-0 p-3">
-        <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
-            <div class="toast-header">
-                <strong class="me-auto" id="toast-title">Notification</strong>
-                <small>Just now</small>
-                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-            </div>
-            <div class="toast-body" id="toast-body">
-                Hello, world! This is a toast message.
-            </div>
-        </div>
-    </div>
-
-    <!-- Bootstrap JS Bundle -->
+    <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     
-    <!-- Custom JavaScript -->
     <script>
-        // Initialize Toast
-        const toastEl = document.getElementById('liveToast');
-        const toastTitle = document.getElementById('toast-title');
-        const toastBody = document.getElementById('toast-body');
-        const toast = new bootstrap.Toast(toastEl);
-        
-        // Counter variable
-        let counter = 0;
-        
-        // Function to show alert
-        function showAlert() {
-            alert("Hello! This is a simple alert. In JavaScript, we use alert() instead of print() for popup messages.");
-            logToConsole("Alert shown to user");
-        }
-        
-        // Function to change background
-        function changeBackground() {
-            const randomColor = '#' + Math.floor(Math.random()*16777215).toString(16);
-            document.body.style.backgroundColor = randomColor;
-            logToConsole(`Background color changed to: ${randomColor}`);
-        }
-        
-        // Function to log to console
-        function logToConsole(message) {
-            const consoleElement = document.getElementById('console');
-            consoleElement.innerHTML += `> ${message}<br>`;
-            consoleElement.scrollTop = consoleElement.scrollHeight;
-        }
-        
-        // Function to add to counter
-        function addToCounter(value) {
-            counter += value;
-            document.getElementById('counter').textContent = counter;
-            logToConsole(`Counter increased to: ${counter}`);
-        }
-        
-        // Function to clear console
-        function clearConsole() {
-            document.getElementById('console').innerHTML = '> Console cleared<br>';
-        }
-        
-        // Function to show notification
-        function showNotification(message, type = 'info') {
-            // Set toast color based on type
-            toastEl.classList.remove('bg-primary', 'bg-success', 'bg-danger', 'bg-info');
-            toastEl.classList.add(`bg-${type}`);
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize the calendar
+            generateCalendar();
             
-            // Set toast content
-            toastTitle.textContent = type.charAt(0).toUpperCase() + type.slice(1);
-            toastBody.textContent = message;
+            // Set up event listeners
+            document.getElementById('bannerSelect').addEventListener('change', function() {
+                if (this.value === 'custom') {
+                    document.getElementById('customDateSection').style.display = 'block';
+                } else {
+                    document.getElementById('customDateSection').style.display = 'none';
+                    updateCalculation();
+                }
+            });
             
-            // Show toast
-            toast.show();
+            document.getElementById('customDate').addEventListener('change', updateCalculation);
+            document.getElementById('startingBudget').addEventListener('input', updateCalculation);
             
-            logToConsole(`Notification: ${message}`);
+            // PvP tier selection
+            const pvpTiers = document.querySelectorAll('.pvp-tier');
+            pvpTiers.forEach(tier => {
+                tier.addEventListener('click', function() {
+                    pvpTiers.forEach(t => t.classList.remove('selected'));
+                    this.classList.add('selected');
+                    updateCalculation();
+                });
+            });
+            
+            // Save and load buttons
+            document.getElementById('saveBtn').addEventListener('click', saveConfiguration);
+            document.getElementById('loadBtn').addEventListener('click', loadConfiguration);
+            
+            // Initial calculation
+            updateCalculation();
+        });
+        
+        // Function to generate the calendar
+        function generateCalendar() {
+            const calendarEl = document.getElementById('calendar');
+            const today = new Date();
+            const currentMonth = today.getMonth();
+            const currentYear = today.getFullYear();
+            
+            // Get first day of month and number of days in month
+            const firstDay = new Date(currentYear, currentMonth, 1).getDay();
+            const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+            
+            // Create calendar header
+            const monthNames = ["January", "February", "March", "April", "May", "June",
+                "July", "August", "September", "October", "November", "December"];
+            
+            let calendarHTML = `
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <button class="btn btn-sm btn-outline-primary"><i class="bi bi-chevron-left"></i></button>
+                    <h5 class="mb-0">${monthNames[currentMonth]} ${currentYear}</h5>
+                    <button class="btn btn-sm btn-outline-primary"><i class="bi bi-chevron-right"></i></button>
+                </div>
+                <div class="row fw-bold">
+                    <div class="col p-2">Sun</div>
+                    <div class="col p-2">Mon</div>
+                    <div class="col p-2">Tue</div>
+                    <div class="col p-2">Wed</div>
+                    <div class="col p-2">Thu</div>
+                    <div class="col p-2">Fri</div>
+                    <div class="col p-2">Sat</div>
+                </div>
+                <div class="row">
+            `;
+            
+            // Add empty cells for days before the first day of the month
+            for (let i = 0; i < firstDay; i++) {
+                calendarHTML += `<div class="col p-2"></div>`;
+            }
+            
+            // Add cells for each day of the month
+            for (let day = 1; day <= daysInMonth; day++) {
+                const dayOfWeek = new Date(currentYear, currentMonth, day).getDay();
+                
+                if (day === today.getDate()) {
+                    calendarHTML += `<div class="col p-2 calendar-day selected">${day}</div>`;
+                } else {
+                    calendarHTML += `<div class="col p-2 calendar-day">${day}</div>`;
+                }
+                
+                // Start a new row after Saturday
+                if ((firstDay + day) % 7 === 0) {
+                    calendarHTML += `</div><div class="row">`;
+                }
+            }
+            
+            calendarHTML += `</div>`;
+            calendarEl.innerHTML = calendarHTML;
+            
+            // Add event listeners to calendar days
+            const calendarDays = document.querySelectorAll('.calendar-day');
+            calendarDays.forEach(day => {
+                day.addEventListener('click', function() {
+                    calendarDays.forEach(d => d.classList.remove('selected'));
+                    this.classList.add('selected');
+                    // You could add custom date selection logic here
+                });
+            });
         }
         
-        // Function to toggle dark mode
-        function toggleDarkMode() {
-            document.body.classList.toggle('bg-dark');
-            document.body.classList.toggle('text-white');
-            logToConsole("Dark mode toggled");
+        // Function to update the calculation
+        function updateCalculation() {
+            const startingBudget = parseInt(document.getElementById('startingBudget').value) || 0;
+            const bannerSelect = document.getElementById('bannerSelect');
+            const daysUntilBanner = bannerSelect.value === 'custom' ? 
+                calculateDaysUntilCustom() : parseInt(bannerSelect.value);
+            
+            const selectedPvpTier = document.querySelector('.pvp-tier.selected');
+            const pvpWeeklyReward = parseInt(selectedPvpTier.getAttribute('data-value'));
+            
+            // Calculate rewards
+            const fromDailies = daysUntilBanner * 30;
+            const fromWeeklies = Math.floor(daysUntilBanner / 7) * 60;
+            const fromPvP = Math.floor(daysUntilBanner / 7) * pvpWeeklyReward;
+            const fromEvents = 300; // Fixed value for example
+            
+            const totalCarrots = startingBudget + fromDailies + fromWeeklies + fromPvP + fromEvents;
+            const estimatedPulls = Math.floor(totalCarrots / 160); // Assuming 160 carrots per pull
+            
+            // Update the UI
+            document.getElementById('daysCount').textContent = `${daysUntilBanner} days`;
+            document.getElementById('startingResult').textContent = startingBudget.toLocaleString();
+            document.getElementById('dailiesResult').textContent = fromDailies.toLocaleString();
+            document.getElementById('weekliesResult').textContent = fromWeeklies.toLocaleString();
+            document.getElementById('pvpResult').textContent = fromPvP.toLocaleString();
+            document.getElementById('eventsResult').textContent = fromEvents.toLocaleString();
+            document.getElementById('totalResult').textContent = totalCarrots.toLocaleString();
+            document.getElementById('pullsResult').textContent = estimatedPulls;
         }
         
-        // Function to handle form submission
-        function handleFormSubmit(event) {
-            event.preventDefault();
+        // Function to calculate days until custom date
+        function calculateDaysUntilCustom() {
+            const customDateInput = document.getElementById('customDate');
+            if (!customDateInput.value) return 30;
             
-            const name = document.getElementById('nameInput').value;
-            const message = document.getElementById('messageInput').value;
-            const color = document.getElementById('colorSelect').value;
+            const customDate = new Date(customDateInput.value);
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
             
-            if (!name) {
-                showNotification('Please enter your name', 'danger');
+            const diffTime = customDate - today;
+            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+            
+            return diffDays > 0 ? diffDays : 30;
+        }
+        
+        // Function to save configuration to localStorage
+        function saveConfiguration() {
+            const config = {
+                startingBudget: document.getElementById('startingBudget').value,
+                bannerSelect: document.getElementById('bannerSelect').value,
+                customDate: document.getElementById('customDate').value,
+                pvpTier: document.querySelector('.pvp-tier.selected').getAttribute('data-value')
+            };
+            
+            localStorage.setItem('bannerCalculatorConfig', JSON.stringify(config));
+            
+            // Show feedback to user
+            alert('Configuration saved successfully!');
+        }
+        
+        // Function to load configuration from localStorage
+        function loadConfiguration() {
+            const savedConfig = localStorage.getItem('bannerCalculatorConfig');
+            if (!savedConfig) {
+                alert('No saved configuration found!');
                 return;
             }
             
-            showNotification(`Thank you, ${name}! Your message has been received.`, 'success');
-            logToConsole(`Form submitted: Name=${name}, Message=${message}, Color=${color}`);
+            const config = JSON.parse(savedConfig);
             
-            // Reset form
-            document.getElementById('nameInput').value = '';
-            document.getElementById('messageInput').value = '';
-            document.getElementById('colorSelect').value = '';
+            document.getElementById('startingBudget').value = config.startingBudget;
+            document.getElementById('bannerSelect').value = config.bannerSelect;
+            
+            if (config.bannerSelect === 'custom') {
+                document.getElementById('customDateSection').style.display = 'block';
+                document.getElementById('customDate').value = config.customDate;
+            } else {
+                document.getElementById('customDateSection').style.display = 'none';
+            }
+            
+            // Select the saved PvP tier
+            const pvpTiers = document.querySelectorAll('.pvp-tier');
+            pvpTiers.forEach(tier => {
+                if (tier.getAttribute('data-value') === config.pvpTier) {
+                    tier.classList.add('selected');
+                } else {
+                    tier.classList.remove('selected');
+                }
+            });
+            
+            updateCalculation();
+            alert('Configuration loaded successfully!');
         }
         
-        // Function to edit info
-        function editInfo(type) {
-            showNotification(`Edit ${type} feature would open here`, 'info');
-            logToConsole(`Edit ${type} button clicked`);
-        }
+        // ADD NEW FUNCTIONS BELOW THIS LINE
+        // You can add any additional functions you need here
         
-        // Initialize with a welcome message
-        logToConsole("Page loaded successfully. Try the interactive elements!");
+        // Example of a new function template:
+        /*
+        function yourNewFunction() {
+            // Your code here
+        }
+        */
     </script>
 </body>
 </html>
