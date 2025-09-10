@@ -169,6 +169,16 @@
     </style>
 </head>
 <body>
+    <div class="modal fade" id="shahidModal" tabindex="-1" aria-labelledby="shahidModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content text-center">
+          <div class="modal-body">
+            <img src="shahid.gif" alt="Shahid" class="img-fluid rounded mb-3" style="max-height:200px;">
+            <div class="fw-bold fs-4">Shahid lowkey will lose the Gemini Cup</div>
+          </div>
+        </div>
+      </div>
+    </div>
     <!-- Navigation Bar -->
     <nav class="navbar navbar-expand-lg navbar-dark">
         <div class="container">
@@ -483,6 +493,8 @@
     
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            var shahidModal = new bootstrap.Modal(document.getElementById('shahidModal'));
+            shahidModal.show();
             // Initialize the calendar
             let currentDate = new Date();
             generateCalendar(currentDate);
@@ -540,6 +552,7 @@
             
             // Savings calculator
             document.getElementById('calculateSavings').addEventListener('click', calculateSavings);
+            
             
             // Initial calculation
             updateCalculation();
